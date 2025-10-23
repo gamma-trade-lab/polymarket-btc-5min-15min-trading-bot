@@ -67,7 +67,6 @@ The bot features a **dashboard** to track profits, arbitrage opportunities, and 
 
 ### 🔐 Security
 
-- **Private Key Management:** Ensure the safe management of your wallet keys. Never expose your private key publicly.
 - **No External Dependencies:** The bot uses only the blockchain and DEX APIs to make trades, reducing external risks and increasing security.
 
 ### 🛠️ Technologies Used:
