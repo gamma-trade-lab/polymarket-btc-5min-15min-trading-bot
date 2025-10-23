@@ -71,7 +71,7 @@ The bot features a **dashboard** to track profits, arbitrage opportunities, and 
 
 ### 🛠️ Technologies Used:
 
-- **EVM-Compatible Blockchains:** Ethereum, Polygon, BSC, and more.
+- **EVM-Compatible Blockchains:** Ethereum, Polygon, BSC, Arbitrum and more.
 - **Web3.js / Ethers.js:** Interacts with blockchain networks and smart contracts.
 - **Node.js & JavaScript:** Backend architecture for executing bot logic.
 - **DEX APIs:** Uses API integration with **Uniswap**, **Sushiswap**, **Pancakeswap**, and others.
