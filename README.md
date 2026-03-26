@@ -1,263 +1,280 @@
-# Polymarket Arbitrage Bot | Polymarket Trading Bot with 7 Strategies
+# Polymarket Trading Bot Suite
 
-**Professional Polymarket Bot for Automated Arbitrage Trading for suitable income**
+A collection of automated trading bots for **Polymarket** binary Up/Down markets, built in Rust. These bots exploit short-term mispricings in 5-minute, 15-minute, and 1-hour prediction markets across **BTC, ETH, SOL, and XRP**.
 
-> **Need help running this project or want an updated version?**  
-> 📱 **Telegram**: [@qntrade](https://t.me/qntrade)  
----
-
-## 📝 Description
-
-**Polymarket Arbitrage Bot** - The ultimate automated trading solution for Polymarket arbitrage opportunities. This **Polymarket trading bot** automatically scans markets, detects arbitrage opportunities, and executes profitable trades when Yes/No ticket prices sum to less than 1.0.
-
-**Current Version Update**: This version specifically addresses and resolves the critical 3.15% profit margin calculation issue, ensuring more accurate arbitrage detection and execution.
+> **This repository contains the 15-Minute Dump-and-Hedge Bot.**
+> Other bot strategies are available separately — see [Get Other Bots](#get-other-bots) below.
+**Telegram: [qntrade](https://t.me/qntrade)**
 
 ---
 
-## ⭐ Why This Bot is "Better"  than other's.
+## Bot Strategies at a Glance
 
-### All-in-One Solution
-Combines the best strategies from CRYINGLITTLEBABY, PolyFlashBot,  Dutch Book bots , etc into one powerful **Polymarket arbitrage trading bot**. No need to switch between multiple tools - everything you need is here.
-
-### Low Entry Barrier
-**Anyone can run it, no Python mastery needed.** Simple setup, clear documentation, and straightforward configuration. This **Polymarket trading bot** is designed for traders of all skill levels.
-
-### Adaptive Execution
-**Auto-adjusts for fees, market liquidity, and sudden volatility.** The bot intelligently adapts to market conditions, ensuring optimal execution even when conditions change rapidly.
-
-### High Speed, Low Stress
-**Trades thousands of micro-opportunities automatically.** Set it up, let it run, and watch it work. This **Polymarket arbitrage bot** handles the complexity so you don't have to.
-
-> **Ready to get started?** Contact via Telegram [@qntrade](https://t.me/qntrade) for setup assistance and access to advanced features.
+| # | Bot | Timeframe | Core Idea |
+|---|-----|-----------|-----------|
+| 1 | [**15min Dump & Hedge**](#1-15-minute-dump-and-hedge-bot-current) | 15 min | Detect a price dump, buy the dumped side, then hedge with the opposite side |
+| 2 | [**15min Pre-Order & Mid-Market**](#2-15-minute-pre-order-and-mid-market-bot) | 15 min | Pre-place limit buys on both sides at low prices before the period starts |
+| 3 | [**1hour Pre-Limit Order**](#3-1-hour-pre-limit-order-bot) | 1 hour | Pre-place limit buys on both sides, merge when both fill |
+| 4 | [**1hour Pre-Limit Order & Mid-Market**](#4-1-hour-pre-limit-order-and-mid-market-bot) | 1 hour | Pre-orders + dynamic mid-market orders in the current hour |
+| 5 | [**5min Pre-Order & Mid-Market**](#5-5-minute-pre-order-and-mid-market-bot) | 5 min | Fast pre-orders on both sides for quick 5-minute markets |
+| 6 | [**5min High-Side Buy**](#6-5-minute-high-side-buy-bot) | 5 min | Buy the likely winner (90c+) late in the period, ride momentum |
+| 7 | [**5min Low-Side Buy**](#7-5-minute-low-side-buy-bot) | 5 min | Buy at 1-3c on both sides for asymmetric reversal payoffs |
 
 ---
 
-## 🎯 Arbitrage Strategies
-
-I implemented these **7 Polymarket arbitrage trading strategies**  for premium version:
-
-1. **Strategy 1**: Liquidity Absorption Flip  
-Overview: Build a large low-cost position by soaking bot liquidity, then briefly force the reference market price at resolution to flip the outcome and cash the higher Polymarket payout.
 
 
-2. **Strategy 2**: Orderbook Parity Arbitrage (Pre-Fee Era)  - <span style="background-color: #4CAF50; color: white; padding: 2px 8px; border-radius: 4px; font-weight: bold;">Current repo's plan</span>  
-Overview: Exploited brief moments where YES + NO priced below $1 on short windows, buying both sides simultaneously and holding to settlement to harvest tiny, repeatable mispricings—an edge erased by the 3.15% fee.  
-Contrast — Post-Fee Adaptation: Liquidation Momentum Filter  
-Overview: After fees killed parity arbitrage, the surviving bot shifted to entering only during forced-liquidation spikes, trading explosive moves where payout asymmetry outweighed fees, proving the edge wasn’t speed but adaptive logic.
+![photo_2026-02-26_11-48-37](https://github.com/user-attachments/assets/d163090d-63e8-4d8b-a0c8-a71769f2e139)
 
-3. **Strategy 3**: Structural Spread Lock  
-Overview: Trade short-duration Polymarket markets by exploiting order-book imbalances—buying both sides during panic mispricing and holding to settlement to capture the guaranteed spread minus fees, independent of market direction
-
-4. **Strategy 4**: Systematic NO Farming  
-Overview: Consistently bet NO on overhyped outcomes, exploiting the fact that most prediction markets statistically resolve to NO while the crowd overpays for unlikely “miracle” outcomes.
-
-5. **Strategy 5**:  Long-Shot Floor Buying  
-Overview: Buy YES shares at the absolute minimum price (≈0.1¢) across thousands of markets, capping downside per bet while relying on rare but inevitable long-shot resolutions to generate asymmetric upside.
-
-6. **Strategy 6**: Spread Farming  
-Overview: Use a high-frequency bot on Polymarket’s CLOB to repeatedly buy at the bid and sell at the ask, capturing tiny spreads thousands of times per day—sometimes hedged across platforms to neutralize price risk.
+![photo_2026-02-26_11-48-43](https://github.com/user-attachments/assets/f4ced050-df1e-4b64-ae7d-11b01d23d1bb)
+![photo_2026-02-26_11-48-47](https://github.com/user-attachments/assets/1dde86b5-335e-4851-87a2-cc2c30ce91c2)
 
 
-7. **Strategy 7**: High-Probability Auto-Compounding  
-Overview: A fully automated bot repeatedly trades short-duration crypto up/down markets by buying high-probability contracts (≈$0.90–$0.99), capturing small spreads and incentives thousands of times a day to compound returns purely through execution and scale.
+## Strategy Summaries
 
-> **Note**: Many advanced trading strategies are implemented in this **Polymarket arbitrage bot**. To access the full feature set and detailed strategy documentation, please contact via Telegram [@qntrade](https://t.me/qntrade).
+### 1. 15-Minute Dump and Hedge Bot (CURRENT)
 
-### Strategy Images
+> **This is the bot included in this repository.**
 
-<table>
-<tr>
-<td><img src="stragegy/1.png" alt="Strategy 1" width="100%"></td>
-<td><img src="stragegy/2.png" alt="Strategy 2" width="100%"></td>
-</tr>
-<tr>
-<td><img src="stragegy/3.png" alt="Strategy 3" width="100%"></td>
-<td><img src="stragegy/4.png" alt="Strategy 4" width="100%"></td>
-</tr>
-<tr>
-<td><img src="stragegy/5.png" alt="Strategy 5" width="100%"></td>
-<td><img src="stragegy/6.png" alt="Strategy 6" width="100%"></td>
-</tr>
-<tr>
-<td colspan="2"><img src="stragegy/7.png" alt="Strategy 7" width="100%"></td>
-</tr>
-</table>
+Monitors 15-minute Up/Down markets and detects sudden price drops ("dumps"). When one side's ask price drops sharply (e.g. 15%+ in 3 seconds), the bot buys that side immediately. It then waits for the opposite side to become cheap enough that the combined cost is below a target (e.g. $0.95). If both legs fill, you hold both outcomes for under $1, guaranteeing profit at resolution ($1 payout). If the hedge doesn't come in time, a stop-loss kicks in.
+
+**Key parameters:** dump threshold, hedge sum target, lookback window, stop-loss timing.
+
+> **Strategy credit:** Based on [The Smart Ape's](https://x.com/the_smart_ape) two-leg catching-and-hedging strategy for Polymarket BTC 15-minute UP/DOWN markets ([original tweet](https://x.com/the_smart_ape/status/2005576087875527082) · [detailed write-up on Lookonchain](https://www.lookonchain.com/articles/1209)). The Smart Ape's approach — detect a sharp dump on one side, buy it, then hedge by buying the opposite side when the combined cost is below $1 — achieved ~86% ROI in backtesting. This bot is a Rust implementation of that core idea with added stop-loss management, multi-asset support, and automatic redemption.
+
+**Real Results:**
+
+<img width="1373" height="535" alt="557978432-bb90c2e3-6178-4348-920a-d3a7a1a53dea" src="https://github.com/user-attachments/assets/a7167380-98f9-433d-b59b-ad9991539b19" />
+<img width="3159" height="663" alt="557978454-e0064780-7b3e-4f22-94fa-ad685ef0023e" src="https://github.com/user-attachments/assets/1cb0da81-8861-490e-b249-b00605d092f5" />
+<img width="3146" height="657" alt="557978477-8688db22-17ba-42ca-83e9-23becdbcc4b2" src="https://github.com/user-attachments/assets/bff9f6af-ecfd-408c-9564-bf72e6feb2c2" />
+<img width="450" height="603" alt="557978557-c7ac3444-caa6-4781-8e72-33cd7dc93240" src="https://github.com/user-attachments/assets/a5164235-4643-44b9-b8ea-18a1aa79dfb0" />
+
+
+
+
+[Read full strategy details ->](docs/15min-dump-and-hedge.md)
 
 ---
 
-## 🎯 About This Polymarket Bot
+### 2. 15-Minute Pre-Order and Mid-Market Bot
 
-This **Polymarket arbitrage bot** is a powerful automated trading system that detects and executes arbitrage opportunities when the sum of Yes/No ticket prices on Polymarket is less than 1.0. This **Polymarket trading bot** implements multiple advanced strategies for optimal performance.
+Places limit BUY orders for **both Up and Down** at a low price (e.g. $0.45 each) before the next 15-minute period starts. If both fill, total cost < $1 and profit is locked in. Also places mid-market orders in the current period using dynamic pricing derived from live sell prices. Signal-based filters skip orders when the market is already one-sided.
 
-Built with real-world trading in mind, this bot handles the complexities of:
-- Real-time market monitoring across hundreds of markets
-- Precise profit margin calculations (including the 3.15% fix)
-- Automated trade execution via Web3
-- Comprehensive data logging and analysis
-- Risk management and adaptive execution
+**Key parameters:** price limit, signal stable range, sell-opposite timing, danger price.
 
-Whether you're a seasoned trader or just getting started, this **Polymarket arbitrage trading bot** makes automated arbitrage accessible and profitable.
+**Real Results:**
 
----
+<img width="2968" height="586" alt="557978705-8e7e74c4-0bb7-451e-8a80-9f2ec3d5b2fd" src="https://github.com/user-attachments/assets/1ae08351-0a0f-4ed3-9391-28b7cade0304" />
 
-## 🎯 Key Features
+<img width="3060" height="558" alt="557978751-a37d80c5-9c11-4043-b27c-7d560c1b50bf" src="https://github.com/user-attachments/assets/408fc082-2977-41ce-9235-963ba29ba682" />
 
-- **Real-time Price Monitoring**: Tracks Yes/No ticket prices across multiple markets in real-time
-- **Advanced Arbitrage Detection**: Automatically detects when `yes_price + no_price < 0.99` condition is met
-- **Multiple Trading Strategies**: This Polymarket bot implements various arbitrage strategies (contact @qntrade for full access)
-- **Adaptive Execution**: Auto-adjusts for fees, market liquidity, and volatility
-- **Data Logging**: Saves price data to CSV and SQLite DB (for arbitrage opportunity analysis)
-- **Automatic Trade Execution**: Automatic order execution via Web3 (optional)
-- **3.15% Issue Resolution**: Fixed profit margin calculation for accurate arbitrage detection
-- **Low Entry Barrier**: Easy setup, no advanced Python knowledge required
-- **High-Speed Processing**: Handles thousands of micro-opportunities automatically
+
+
+[Read full strategy details ->](docs/15min-pre-order-mid-market.md)
 
 ---
 
-## 🚀 Quick Guide
+### 3. 1-Hour Pre-Limit Order Bot
+
+Targets 1-hour Up/Down markets. Places limit BUY orders on both sides at a fixed price before the next hour begins. When both sides fill, positions are **merged** (redeemed back to USDC) to lock in profit immediately without waiting for market resolution. Danger and timeout exits protect against one-sided fills.
+
+**Key parameters:** price limit, merge logic, danger price, timeout.
+
+**Real Results:**
+
+![1hour Pre-Limit Results](docs/screenshots/1hour-pre-limit-order-result.png)
+
+[Read full strategy details ->](docs/1hour-pre-limit-order.md)
+
+---
+
+### 4. 1-Hour Pre-Limit Order and Mid-Market Bot
+
+Extends the 1-hour pre-limit strategy with **dynamic mid-market orders** during the current hour. The cheaper side is bought at its current sell price; the opposite side gets a small discount. Combined with pre-orders for the next hour, this maximizes fill opportunities. Same merge and risk management as the pre-limit bot.
+
+**Key parameters:** price limit, opposite-side discount, mid-market enabled, signal.
+
+**Real Results:**
+
+<img width="1167" height="698" alt="557978885-e3ee3c0d-5827-40a5-933d-6ccbcc1b3a54" src="https://github.com/user-attachments/assets/db9c6abf-0b47-444e-92fa-f1065fcd3cd0" />
+
+[Read full strategy details ->](docs/1hour-pre-limit-order-mid-market.md)
+
+---
+
+### 5. 5-Minute Pre-Order and Mid-Market Bot
+
+Same concept as the 15-minute pre-order bot, adapted for the faster 5-minute markets. Places limit buys on both sides at low prices before the next period. The 5-minute timeframe means thinner liquidity and more frequent opportunities, but also requires faster signal evaluation and tighter risk management.
+
+**Key parameters:** price limit, sell-opposite threshold and timing (in seconds), signal range.
+
+**Real Results:**
+
+<img width="1124" height="156" alt="557979031-c6ddfdf2-15ec-4161-bd71-abcf0e44cf05" src="https://github.com/user-attachments/assets/cb58dbf8-9933-4789-ad00-e734dd9ade4f" />
+
+<img width="1404" height="578" alt="557979087-98aa358e-1869-44a1-9c43-141e9583131d" src="https://github.com/user-attachments/assets/3b64222e-55ec-43d8-8e04-954286aeb162" />
+
+
+[Read full strategy details ->](docs/5min-pre-order-mid-market.md)
+
+---
+
+### 6. 5-Minute High-Side Buy Bot
+
+When one side is strongly favored (bid >= 90c+) late in a 5-minute period, the bot buys that side — betting the market consensus is right with limited time to reverse. If the price drops below a floor, the bot sells or hedges with the opposite side. Per-asset configuration allows different thresholds and behaviors.
+
+**Key parameters:** threshold, after seconds, sell-under price, hedge (opposite) enabled.
+
+**Real Results:**
+
+<img width="1010" height="428" alt="557984485-05ba3362-2456-4e19-96af-20cfed752817" src="https://github.com/user-attachments/assets/6eb87c22-0b89-406a-bdb3-60b5dbda4577" />
+
+
+
+[Read full strategy details ->](docs/5min-high-side-buy.md)
+
+---
+
+### 7. 5-Minute Low-Side Buy Bot
+
+Places limit buys at very low prices (1c, 2c, 3c) on **both** Up and Down. Each fill is a cheap lottery ticket: risk 1-3c to potentially make 97-99c if that side wins. Take-profit tiers (e.g. sell 50% at 10c, rest at 15c) lock in multi-x returns even without holding to expiry. Unfilled orders are automatically cancelled near market close.
+
+**Key parameters:** entry prices, take-profit tiers, cancel-unfilled timing.
+
+**Real Results:**
+
+
+[Read full strategy details ->](docs/5min-low-side-buy.md)
+
+---
+
+## Current Bot: 15-Minute Dump and Hedge
+
+This repository contains the **15-Minute Dump-and-Hedge Bot**. Below is everything you need to get it running.
 
 ### Prerequisites
 
-- Python 3.8 or higher
-- Polymarket account and wallet (for actual trading with this Polymarket trading bot)
-- Polygon network RPC access
-
-### Installation
-
-1. **Clone or download the repository**
-```bash
-cd polymarket_arbitrage_bot
-```
-
-2. **Create and activate virtual environment** (recommended)
-```bash
-python3 -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
-```
-
-3. **Install required packages**
-```bash
-pip install -r requirements.txt
-```
-
-4. **Set up environment variables**
-```bash
-cp .env.example .env
-# Open .env file and modify with actual values
-```
+- **Rust** (e.g. 1.70+): install from [rustup.rs](https://rustup.rs)
+- **Polymarket account** and API credentials (for production)
+- **Proxy wallet** and **private key** (for signing and redeeming)
 
 ### Configuration
 
-Configure your **Polymarket arbitrage trading bot** by adjusting settings in the `.env` file:
+Configuration is in **`config.json`** (path overridable with `--config`).
 
-- `MIN_PROFIT_MARGIN`: Minimum profit margin (default: 0.01 = 1%)
-- `SCAN_INTERVAL`: Market scan interval (seconds)
-- `MAX_MARKETS_TO_MONITOR`: Number of markets to monitor simultaneously
-- `PRIVATE_KEY`: Wallet private key (required for actual trading)
-- `ENABLE_DATA_LOGGING`: Enable/disable data logging
-
-> **Advanced configurations available**: This Polymarket bot supports many additional strategies and optimizations. Contact [@qntrade](https://t.me/qntrade) for advanced settings and custom configurations.
-
-### Usage
-
-#### Data Logging Mode (record prices only, no trading)
-```bash
-# Leave PRIVATE_KEY empty in .env to only perform data logging
-python bot.py
+```json
+{
+ ....
+}
 ```
 
-In this mode, the Polymarket trading bot:
-- Periodically queries prices of active markets
-- Saves price data to CSV and SQLite DB
-- Outputs to console when arbitrage opportunities are found (does not execute trades)
-
-#### Actual Trading Mode
-```bash
-# Set PRIVATE_KEY in .env and run
-python bot.py
-```
-
-**⚠️ Warning**: Actual trading mode uses real funds. Use only after sufficient testing.
-
-#### Monitor Specific Markets Only
-```python
-bot = PolyArbitrageBot(market_ids=["market-id-1", "market-id-2"])
-bot.run()
-```
-
-### Data Analysis
+### Build & Run
 
 ```bash
-# Analyze last 24 hours of data
-python3 analyze_data.py
-
-# Analyze last 1 hour of data
-python3 analyze_data.py 1
-
-# Analysis + CSV export
-python3 analyze_data.py 24 --export
+cargo build --release
 ```
 
-For detailed terminal commands, see [COMMANDS.md](COMMANDS.md).
+**Simulation (no real orders):**
 
-> **Need help?** Contact via Telegram [@qntrade](https://t.me/qntrade) for setup assistance or updated versions of this Polymarket trading bot.
+```bash
+./target/release/polymarket-arbitrage-bot --simulation
+```
+
+**Production (live trading):**
+
+```bash
+./target/release/polymarket-arbitrage-bot --production --config config.json
+```
+
+### Redeem Mode
+
+After a 15m market resolves, redeem winning positions:
+
+```bash
+./target/release/polymarket-arbitrage-bot --redeem --config config.json
+```
+
+Redeem a specific condition:
+
+```bash
+./target/release/polymarket-arbitrage-bot --redeem --condition-id 0x... --config config.json
+```
+
+### Running with PM2
+
+```javascript
+// ecosystem.config.cjs
+module.exports = {
+  apps: [{
+    name: "polymarket-bot",
+    script: "./target/release/polymarket-arbitrage-bot",
+    args: "--production --config config.json",
+    cwd: __dirname,
+    interpreter: "none",
+    autorestart: true,
+    watch: false,
+    max_memory_restart: "500M",
+  }],
+};
+```
+
+```bash
+pm2 start ecosystem.config.cjs
+pm2 logs polymarket-bot
+```
+
+### Logging
+
+- **Stderr:** Main log stream (info level).
+- **`history.toml`:** Append-only run log in the working directory.
+- **RUST_LOG:** `RUST_LOG=info` (default) or `RUST_LOG=debug` for more detail.
+
+### Supported Markets
+
+Configured via `trading.markets` in `config.json`:
+
+- `btc` — Bitcoin 15m Up/Down
+- `eth` — Ethereum 15m Up/Down
+- `sol` — Solana 15m Up/Down
+- `xrp` — XRP 15m Up/Down
+
+### Security
+
+- **Never commit real keys.** Keep `config.json` out of version control.
+- **`private_key`** controls funds; restrict file permissions and use a dedicated trading wallet.
+
+### File Layout
+
+| Path | Purpose |
+|------|---------|
+| `config.json` | Polymarket and trading settings |
+| `src/main.rs` | Entry point, CLI, market discovery, redeem |
+| `src/dump_hedge_trader.rs` | Dump-and-hedge strategy and state |
+| `src/monitor.rs` | Market data (API/WebSocket) and snapshots |
+| `src/api.rs` | Polymarket CLOB/Gamma API client |
+| `src/config.rs` | Config and CLI parsing |
+| `src/models.rs` | Market/token data structures |
+| `docs/` | Detailed strategy documentation for all bots |
 
 ---
 
-## ⚖️ Disclaimer
+## Get Other Bots
 
-Each arbitrage strategy requires individual fine-tuning to align with specific user requirements.
-This **Polymarket bot** is provided for educational and research purposes. The developer is not responsible for any losses that may occur when using it for actual trading. Please use only after sufficient testing and verification.
+This repository only includes the **15-Minute Dump-and-Hedge Bot**.
 
-**Important Notes:**
-- API Rate Limits: Polymarket API has request limits. Set `SCAN_INTERVAL` appropriately.
-- Gas Fees: Polygon network has low gas fees, but gas fees can eat into profits when targeting small profits.
-- Slippage: Slippage may occur due to price movements during actual trading with this Polymarket trading bot.
-- Concurrency: Arbitrage requires "concurrency". If you buy a Yes ticket and the No ticket price rises in the meantime, losses may occur.
+If you are interested in any of the other strategies:
 
----
+- 15-Minute Pre-Order & Mid-Market Bot
+- 1-Hour Pre-Limit Order Bot
+- 1-Hour Pre-Limit Order & Mid-Market Bot
+- 5-Minute Pre-Order & Mid-Market Bot
+- 5-Minute High-Side Buy Bot
+- 5-Minute Low-Side Buy Bot
 
-## 📝 License
-
-This project is freely available for educational purposes.
+**Please contact me on Telegram: [@qntrade](https://t.me/qntrade)**
 
 ---
 
-## 🔍 Keywords & Tags
+## Disclaimer
 
-**Polymarket Bot** | **Polymarket Trading Bot** | **Polymarket Arbitrage Bot** | **Polymarket Arbitrage Trading Bot** | Automated Trading | Prediction Markets | Arbitrage Trading | Polymarket Automation | Crypto Trading Bot | DeFi Arbitrage | Market Making | Price Arbitrage | Polymarket API | Web3 Trading | Polygon Network | Automated Arbitrage | Trading Bot | Polymarket Strategies
-
----
-
-**Search Terms**: polymarket bot, polymarket trading bot, polymarket arbitrage bot, polymarket automation, polymarket trading strategies, automated polymarket trading, polymarket price arbitrage, polymarket bot python, polymarket arbitrage opportunities
-
----
-
-## 📱 Contact
-
-Telegram: [@qntrade](https://t.me/qntrade)
-
----
-
-## 📚 Additional Resources
-
-- [Polymarket API Documentation](https://docs.polymarket.com)
-- [CLOB API Documentation](https://docs.polymarket.com/developers/CLOB)
-- [py-clob-client GitHub](https://github.com/Polymarket/py-clob-client)
-- [COMMANDS.md](COMMANDS.md) - Detailed terminal commands guide
-
----
-
-## 💡 Advanced Features & Support
-
-This **Polymarket arbitrage trading bot** includes many advanced strategies and optimizations. The current public version focuses on core arbitrage detection with the 3.15% issue resolution. For access to:
-
-- Advanced trading strategies
-- Optimized configurations
-- Custom market filters
-- Enhanced profit calculations
-- Real-time WebSocket integration
-- Multi-market parallel processing
-- Risk management features
-
-**Contact** via Telegram [@qntrade](https://t.me/qntrade) (see top of README).
+These bots are for educational and research purposes. Trading on prediction markets involves risk. Use at your own risk; the authors are not responsible for financial losses. Always test with `simulation_mode: true` and small sizes before live trading.
