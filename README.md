@@ -82,8 +82,6 @@ Targets 1-hour Up/Down markets. Places limit BUY orders on both sides at a fixed
 
 **Real Results:**
 
-![1hour Pre-Limit Results](docs/screenshots/1hour-pre-limit-order-result.png)
-
 [Read full strategy details ->](docs/1hour-pre-limit-order.md)
 
 ---
