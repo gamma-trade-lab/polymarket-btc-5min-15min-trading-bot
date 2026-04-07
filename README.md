@@ -4,7 +4,9 @@ A collection of automated trading bots for **Polymarket** binary Up/Down markets
 
 > **This repository contains the 15-Minute Dump-and-Hedge Bot.**
 > Other bot strategies are available separately — see [Get Other Bots](#get-other-bots) below.
-**Telegram: [qntrade](https://t.me/qntrade)**
+
+
+**If you would like a detailed real-time guide, please contact us via [Telegram](https://t.me/q10000010).**
 
 ---
 
@@ -269,7 +271,7 @@ If you are interested in any of the other strategies:
 - 5-Minute High-Side Buy Bot
 - 5-Minute Low-Side Buy Bot
 
-**Please contact me on Telegram: [@qntrade](https://t.me/qntrade)**
+**Please contact me on [Telegram](https://t.me/q10000010)**
 
 ---
 
